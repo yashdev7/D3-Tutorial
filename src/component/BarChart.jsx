@@ -8,20 +8,19 @@ const BarChart = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const row = (d) => {
-      d.Population = +d["2020"];
-      return d;
-    };
-    csv(url).then((data) => {
+    csv(url, row).then((data) => {
       setData(data.slice(0, 10));
     });
   }, []);
 
+  const row = (d) => {
+    d.Population = +d["2020"];
+    return d;
+  };
+
   if (!data) {
     return <div>Loading...</div>;
   }
-
-  console.log(data[0]);
 
   const width = 960;
   const height = 500;
